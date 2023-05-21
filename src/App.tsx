@@ -19,7 +19,7 @@ export const App: FC = () => (
 const Phone: FC = () => {
     return (
         <iframe
-            src={location.origin}
+            src={location.origin + location.pathname}
             height={740}
             width={360}
             css={{
@@ -46,6 +46,7 @@ const RedirectLayout: FC = () => {
             if (!shouldForcePhone && isForcingPhone)
                 setRedirecting(<Navigate to={pathParts.slice(2).join("/")} />);
         };
+        listener();
         window.addEventListener("resize", listener);
         return () => window.removeEventListener("resize", listener);
     }, [location]);
