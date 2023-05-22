@@ -8,14 +8,16 @@ import {BaseMemory} from "../../../../model/memories/BaseMemory";
 
 export const PictureMemoryUI: FC<{
     memory: PictureMemory;
-    onDelete: (memory: BaseMemory) => void;
-}> = ({memory, onDelete}) => {
+    onDelete?: (memory: BaseMemory) => void;
+    viewOnly?: boolean;
+}> = ({memory, onDelete, viewOnly}) => {
     const [h] = useDataHook();
     const theme = useTheme();
     return (
         <MemoryFrame
             memory={memory}
             onDelete={onDelete}
+            viewOnly={viewOnly}
             fullScreen={
                 <img
                     src={memory.getMedia(h)}

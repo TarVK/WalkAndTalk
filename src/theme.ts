@@ -3,6 +3,7 @@ import type {} from "@mui/x-date-pickers/themeAugmentation";
 
 const primaryDark = "#00cf11";
 const secondaryDark = "#ce8236";
+export const darkText = "rgb(10, 61, 0)";
 export const theme = createTheme({
     palette: {
         primary: {

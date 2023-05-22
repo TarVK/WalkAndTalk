@@ -7,14 +7,16 @@ import {BaseMemory} from "../../../../model/memories/BaseMemory";
 
 export const SongMemoryUI: FC<{
     memory: SongMemory;
-    onDelete: (memory: BaseMemory) => void;
-}> = ({memory, onDelete}) => {
+    onDelete?: (memory: BaseMemory) => void;
+    viewOnly?: boolean;
+}> = ({memory, onDelete, viewOnly}) => {
     const [h] = useDataHook();
     const theme = useTheme();
     return (
         <MemoryFrame
             memory={memory}
             onDelete={onDelete}
+            viewOnly={viewOnly}
             fullScreen={
                 <iframe
                     style={{borderRadius: theme.spacing(1)}}

@@ -57,6 +57,24 @@ export class BaseMemory {
     }
 
     /**
+     * Retrieves how often this memory has already been discussed
+     * @param hook The hook to subscribe to changes
+     * @returns The discussed count
+     */
+    public getDiscussedCount(hook?: IDataHook): number {
+        return this.discussedCount.get(hook);
+    }
+
+    /**
+     * Updates the discussed count by incrementing by the specified delta
+     * @param delta The amount to increment (or decrement if negative) by
+     */
+    public changeDiscussedCount(delta: number): void {
+        const newValue = Math.max(0, this.getDiscussedCount() + delta);
+        this.discussedCount.set(newValue);
+    }
+
+    /**
      * Sets the date of the memory
      * @param date The new date
      */

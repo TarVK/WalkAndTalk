@@ -12,6 +12,7 @@ import {TextMemory} from "../../../../model/memories/TextMemory";
 import {TextMemoryUI} from "./TextMemoryUI";
 import {BaseMemory} from "../../../../model/memories/BaseMemory";
 import {SectionEditor} from "./editing/SectionEditor";
+import {ReactNode} from "react-markdown/lib/ast-to-react";
 
 export const SectionUI: FC<{section: Section; onDelete: (section: Section) => void}> = ({
     section,
@@ -50,33 +51,9 @@ export const SectionUI: FC<{section: Section; onDelete: (section: Section) => vo
                         <DateUI timestamp={section.getCreationDate(h)} />
                     </Typography>
                 </Box>
-                {section.getMemories(h).map(memory => {
-                    if (memory instanceof PictureMemory)
-                        return (
-                            <PictureMemoryUI
-                                key={memory.getID()}
-                                memory={memory}
-                                onDelete={onDeleteMemory}
-                            />
-                        );
-                    if (memory instanceof SongMemory)
-                        return (
-                            <SongMemoryUI
-                                key={memory.getID()}
-                                memory={memory}
-                                onDelete={onDeleteMemory}
-                            />
-                        );
-                    if (memory instanceof TextMemory)
-                        return (
-                            <TextMemoryUI
-                                key={memory.getID()}
-                                memory={memory}
-                                onDelete={onDeleteMemory}
-                            />
-                        );
-                    return <div key={memory.getID()} />;
-                })}
+                {section
+                    .getMemories(h)
+                    .map(memory => getMemoryUI(memory, onDeleteMemory))}
 
                 <Box
                     borderRadius={theme.spacing(2)}
@@ -96,3 +73,45 @@ export const SectionUI: FC<{section: Section; onDelete: (section: Section) => vo
         </>
     );
 };
+
+/**
+ * Retrieves the UI for a given memory
+ * @param memory The memory to get the UI for
+ * @param onDeleteMemory A callback for when the memory is deleted
+ * @param viewOnly Whether the memory shouldn't be editable
+ * @returns The memory element
+ */
+export function getMemoryUI(
+    memory: BaseMemory,
+    onDeleteMemory: (memory: BaseMemory) => void = () => {},
+    viewOnly: boolean = false
+): ReactNode {
+    if (memory instanceof PictureMemory)
+        return (
+            <PictureMemoryUI
+                key={memory.getID()}
+                memory={memory}
+                onDelete={onDeleteMemory}
+                viewOnly={viewOnly}
+            />
+        );
+    if (memory instanceof SongMemory)
+        return (
+            <SongMemoryUI
+                key={memory.getID()}
+                memory={memory}
+                onDelete={onDeleteMemory}
+                viewOnly={viewOnly}
+            />
+        );
+    if (memory instanceof TextMemory)
+        return (
+            <TextMemoryUI
+                key={memory.getID()}
+                memory={memory}
+                onDelete={onDeleteMemory}
+                viewOnly={viewOnly}
+            />
+        );
+    return <div key={memory.getID()} />;
+}

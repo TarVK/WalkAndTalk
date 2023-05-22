@@ -8,13 +8,15 @@ import {TransitionProps} from "@mui/material/transitions";
 import Slide from "@mui/material/Slide";
 import {textColor} from "../theme";
 import {bgColor} from "../pages/dashboard/bereaved/components/MemoryFrame";
+import {ConfirmationPrompt} from "./ConfirmationPrompt";
 
 export const Dialog: FC<{
     title: string;
     buttons?: ReactNode;
     opened: boolean;
+    confirmCloseMessage?: string;
     onClose: () => void;
-}> = ({title, buttons, children, opened, onClose}) => {
+}> = ({title, buttons, children, opened, onClose, confirmCloseMessage}) => {
     return (
         <BootstrapDialog
             TransitionComponent={Transition}
@@ -25,6 +27,7 @@ export const Dialog: FC<{
             <BootstrapDialogTitle
                 id="customized-dialog-title"
                 onClose={onClose}
+                confirmCloseMessage={confirmCloseMessage}
                 buttons={buttons}>
                 {title}
             </BootstrapDialogTitle>
@@ -55,9 +58,11 @@ const BootstrapDialogTitle: FC<{
     id: string;
     children: ReactNode;
     buttons?: ReactNode;
+    confirmCloseMessage?: string;
     onClose: () => void;
-}> = ({children, onClose, buttons, ...other}) => {
+}> = ({children, onClose, buttons, confirmCloseMessage, ...other}) => {
     const theme = useTheme();
+    const [confirmingClose, setConfirmingClose] = useState(false);
     return (
         <DialogTitle
             sx={{m: 0, p: 1.5}}
@@ -73,10 +78,20 @@ const BootstrapDialogTitle: FC<{
             <Box flexGrow={1} />
             {buttons}
             {onClose ? (
-                <IconButton aria-label="close" onClick={onClose}>
+                <IconButton
+                    aria-label="close"
+                    onClick={() =>
+                        confirmCloseMessage ? setConfirmingClose(true) : onClose()
+                    }>
                     <CloseIcon />
                 </IconButton>
             ) : null}
+            <ConfirmationPrompt
+                opened={confirmingClose}
+                onClose={() => setConfirmingClose(false)}
+                onConfirm={onClose}>
+                {confirmCloseMessage}
+            </ConfirmationPrompt>
         </DialogTitle>
     );
 };

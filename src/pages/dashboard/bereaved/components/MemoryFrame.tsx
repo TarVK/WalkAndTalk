@@ -16,8 +16,9 @@ import {ConfirmationPrompt} from "../../../../components/ConfirmationPrompt";
 export const MemoryFrame: FC<{
     memory: BaseMemory;
     fullScreen?: ReactNode;
-    onDelete: (memory: BaseMemory) => void;
-}> = ({memory, children, fullScreen, onDelete}) => {
+    onDelete?: (memory: BaseMemory) => void;
+    viewOnly?: boolean;
+}> = ({memory, children, fullScreen, onDelete = () => {}, viewOnly}) => {
     const [h] = useDataHook();
     const description = memory.getDescription(h);
     const date = memory.getDate(h);
@@ -58,15 +59,21 @@ export const MemoryFrame: FC<{
                 opened={opened}
                 onClose={() => setOpened(false)}
                 buttons={
-                    <IconButton
-                        size="medium"
-                        aria-label="Edit"
-                        onClick={() => setEditing(editing => !editing)}>
-                        <EditIcon />
-                    </IconButton>
+                    !viewOnly && (
+                        <IconButton
+                            size="medium"
+                            aria-label="Edit"
+                            onClick={() => setEditing(editing => !editing)}>
+                            <EditIcon />
+                        </IconButton>
+                    )
                 }>
                 {editing ? (
-                    <Box padding={2} display="flex" flexDirection="column" height="100%">
+                    <Box
+                        padding={2}
+                        display="flex"
+                        flexDirection="column"
+                        minHeight="100%">
                         <Box display="flex">
                             <DatePicker
                                 css={{

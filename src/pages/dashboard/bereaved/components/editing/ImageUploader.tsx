@@ -2,10 +2,12 @@ import {FC, ChangeEvent, useState} from "react";
 import {Box, Button, CircularProgress} from "@mui/material";
 import {theme} from "../../../../../theme";
 
-export const ImageUploader: FC<{onUploaded: (image: string) => void; media?: string}> = ({
-    onUploaded,
-    media,
-}) => {
+export const ImageUploader: FC<{
+    onUploaded: (image: string) => void;
+    text?: string;
+    media?: string;
+    onStart?: () => void;
+}> = ({onUploaded, media, onStart, text}) => {
     const [loading, setLoading] = useState(false);
     const onChange = async (event: ChangeEvent<HTMLInputElement>) => {
         setLoading(true);
@@ -36,7 +38,8 @@ export const ImageUploader: FC<{onUploaded: (image: string) => void; media?: str
                         bottom: 0,
                         opacity: 0,
                     },
-                }}>
+                }}
+                onClick={onStart}>
                 {!loading && (
                     <input
                         type="file"
@@ -51,7 +54,7 @@ export const ImageUploader: FC<{onUploaded: (image: string) => void; media?: str
                     variant="contained"
                     color="primary"
                     disabled={loading}>
-                    Select image{" "}
+                    {text ?? "Select image "}
                     {loading && (
                         <Box marginLeft={2}>
                             <CircularProgress size={30} color="secondary" />

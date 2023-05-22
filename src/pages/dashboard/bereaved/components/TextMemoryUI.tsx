@@ -10,5 +10,8 @@ import {BaseMemory} from "../../../../model/memories/BaseMemory";
 
 export const TextMemoryUI: FC<{
     memory: TextMemory;
-    onDelete: (memory: BaseMemory) => void;
-}> = ({memory, onDelete}) => <MemoryFrame memory={memory} onDelete={onDelete} />;
+    onDelete?: (memory: BaseMemory) => void;
+    viewOnly?: boolean;
+}> = ({memory, onDelete, viewOnly}) => (
+    <MemoryFrame memory={memory} onDelete={onDelete} viewOnly={viewOnly} />
+);

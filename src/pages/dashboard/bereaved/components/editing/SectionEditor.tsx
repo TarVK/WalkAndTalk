@@ -15,6 +15,7 @@ import {ConfirmationPrompt} from "../../../../../components/ConfirmationPrompt";
 import {Markdown} from "../../../../../components/Markdown";
 import {texts} from "../../../../../text";
 import {AddMemoryDialog} from "./AddMemoryDialog";
+import {AddMemoryInputs} from "./AddMemoryInputs";
 
 export const SectionEditor: FC<{
     section: Section;
@@ -24,9 +25,6 @@ export const SectionEditor: FC<{
 }> = ({section, opened, onClose, onDelete}) => {
     const [h] = useDataHook();
     const [confirmingDeletion, setConfirmingDeletion] = useState(false);
-    const [adding, setAdding] = useState<"text" | "picture" | "song" | undefined>(
-        undefined
-    );
 
     const theme = useTheme();
     return (
@@ -35,7 +33,7 @@ export const SectionEditor: FC<{
                 p={2}
                 display="flex"
                 flexDirection="column"
-                height="100%"
+                minHeight="100%"
                 bgcolor={
                     section.getType(h) == "present"
                         ? theme.palette.primary.light
@@ -50,27 +48,7 @@ export const SectionEditor: FC<{
 
                 <Markdown>{texts.uploadTips}</Markdown>
 
-                <Button variant="contained" onClick={() => setAdding("picture")}>
-                    Add image
-                </Button>
-                <Button
-                    variant="contained"
-                    css={{marginTop: theme.spacing(1)}}
-                    onClick={() => setAdding("song")}>
-                    Add song
-                </Button>
-                <Button
-                    variant="contained"
-                    css={{marginTop: theme.spacing(1)}}
-                    onClick={() => setAdding("text")}>
-                    Add message
-                </Button>
-                <AddMemoryDialog
-                    onClose={() => setAdding(undefined)}
-                    section={section}
-                    opened={!!adding}
-                    type={adding!}
-                />
+                <AddMemoryInputs section={section} />
 
                 <Box flex={1} />
                 <Box display="flex" gap={2} alignItems={"center"} marginTop={2}>

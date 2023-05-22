@@ -12,7 +12,16 @@ render(
     <LocalizationProvider dateAdapter={AdapterDayjs}>
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <style>{`body { color: ${textColor} ; }`}</style>
+            <style>{`
+    body { 
+        color: ${textColor}; 
+        background-color: #1e1f1c; 
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+    body::-webkit-scrollbar {
+        display: none;
+    }`}</style>
             <HashRouter>
                 <App></App>
             </HashRouter>

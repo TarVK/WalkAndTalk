@@ -20,6 +20,8 @@ import {useDataHook} from "model-react";
 import {BuddyProfile} from "../../../model/BuddyProfile";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
 import {HideOnScroll} from "../../../components/HideOnScroll";
+import {darkText} from "../../../theme";
+import {Link} from "react-router-dom";
 
 export const Header: FC<{state: AppState}> = ({state}) => {
     const [moreAnchorEl, setMoreAnchorEl] = useState<null | HTMLElement>(null);
@@ -45,13 +47,15 @@ export const Header: FC<{state: AppState}> = ({state}) => {
             <HideOnScroll>
                 <AppBar>
                     <Toolbar>
-                        <Typography
-                            variant="h6"
-                            component="div"
-                            paddingRight={1}
-                            css={{fontFamily: "comic sans MS", color: "rgb(10, 61, 0)"}}>
-                            W&T
-                        </Typography>
+                        <Link to="/" css={{textDecoration: "none"}}>
+                            <Typography
+                                variant="h6"
+                                component="div"
+                                paddingRight={1}
+                                css={{fontFamily: "comic sans MS", color: darkText}}>
+                                W&T
+                            </Typography>
+                        </Link>
 
                         <Box sx={{flexGrow: 1}} />
 
@@ -111,7 +115,7 @@ export const Header: FC<{state: AppState}> = ({state}) => {
                                 aria-controls={menuId}
                                 aria-haspopup="true"
                                 onClick={handleMenuOpen}
-                                css={{paddingRight: 0}}>
+                                css={{marginRight: -10}}>
                                 <AccountCircle />
                             </IconButton>
                         </Box>
