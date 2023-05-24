@@ -1,9 +1,10 @@
-import {Box, Button, useTheme} from "@mui/material";
+import {Box, Button, Typography, useTheme} from "@mui/material";
 import {FC} from "react";
 import {InfoHeader} from "../../components/InfoHeader";
 import {Link} from "react-router-dom";
 import {Markdown} from "../../components/Markdown";
 import {texts} from "../../text";
+import { Accordion } from "../../components/Accordion";
 
 export const Home: FC = () => {
     const theme = useTheme();
@@ -42,8 +43,13 @@ export const Home: FC = () => {
                     </Link>
                 </Box>
                 <Box mt={6}>
-                    <Markdown>{texts.applicationDescription}</Markdown>
-                </Box>
+                    <Markdown>{texts.applicationDescription.featureIntro}</Markdown>
+                    <Accordion
+                    items={texts.applicationDescription.featureItems.map(({title, text}) => ({
+                        title: <Typography variant="h6">{title}</Typography>,
+                        text: <Markdown>{text}</Markdown>,
+                    }))}/>
+                </Box> 
             </Box>
         </Box>
     );

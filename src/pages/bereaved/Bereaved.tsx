@@ -17,18 +17,19 @@ export const Bereaved: FC = () => {
             <InfoHeader />
             {/* <Carousel
                 items={[ */}
-            {texts.bereavedInfo.items.map((text, i) => (
+            {/* {texts.bereavedInfo.items.map((text, i) => (
                 <Box key={i} paddingX={2}>
                     <Markdown>{text}</Markdown>
                 </Box>
-            ))}
-            <Box padding={2}>
-                <Markdown>{texts.bereavedInfo.getStarted}</Markdown>
-
+            ))} */}
+            <Box paddingX={2}>
+                <Markdown>{[...texts.bereavedInfo.items, texts.bereavedInfo.getStarted].join("\n\n")}</Markdown>
+            </Box>
+            <Box padding={2} paddingTop={0}>
                 <Link to="/dashboard#bereaved">
                     <Button
                         variant="contained"
-                        css={{marginTop: theme.spacing(1), width: "100%"}}>
+                        css={{ width: "100%"}}>
                         Sign up
                     </Button>
                 </Link>

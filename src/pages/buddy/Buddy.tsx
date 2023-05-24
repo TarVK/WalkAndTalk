@@ -17,21 +17,15 @@ export const Buddy: FC = () => {
             <InfoHeader />
             {/* <Carousel
                 items={[ */}
-            {[
-                texts.buddyInfo.items.map((text, i) => (
-                    <Box paddingX={2} key={i}>
-                        <Markdown>{text}</Markdown>
-                    </Box>
-                )),
-            ]}
-            <Box padding={2}>
-                <Markdown>{texts.buddyInfo.getStarted}</Markdown>
-
+            <Box paddingX={2}>
+                <Markdown>{[...texts.buddyInfo.items, texts.buddyInfo.getStarted].join("\n\n")}</Markdown>
+            </Box>
+            <Box padding={2} paddingTop={0}>
                 <Link to="/dashboard#buddy">
                     <Button
                         variant="contained"
-                        css={{marginTop: theme.spacing(1), width: "100%"}}>
-                        Get started
+                        css={{ width: "100%"}}>
+                        Sign up
                     </Button>
                 </Link>
             </Box>

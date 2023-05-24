@@ -4,6 +4,7 @@ import {Box, Button, Divider, Typography} from "@mui/material";
 import {Markdown} from "../../../components/Markdown";
 import {texts} from "../../../text";
 import {WalkView} from "./WalkView";
+import {Accordion} from "../../../components/Accordion";
 
 export const Buddy: FC<{profile: BuddyProfile}> = ({profile}) => {
     const [walking, setWalking] = useState(false);
@@ -26,7 +27,14 @@ export const Buddy: FC<{profile: BuddyProfile}> = ({profile}) => {
             </Box>
             <Divider variant="middle" />
             <Box padding={2}>
-                <Markdown>{texts.buddyReadingMaterial}</Markdown>
+                <Markdown>{texts.buddyReadingMaterial.before}</Markdown>
+                <Accordion
+                    items={texts.buddyReadingMaterial.items.map(({title, text}) => ({
+                        title: <Typography variant="h6">{title}</Typography>,
+                        text: <Markdown>{text}</Markdown>,
+                    }))}
+                />
+                <Markdown>{texts.buddyReadingMaterial.after}</Markdown>
             </Box>
         </>
     );
