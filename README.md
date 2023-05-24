@@ -14,7 +14,7 @@ Below is a screenshot of what the journal in our prototype looks like
 
 ### Presentation
 
-See [walktalk slides.pptx](/walktalk%20slides.pptx) for some more information
+See [walktalk slides.pdf](/walktalk%20slides.pdf) or [walktalk slides.pptx](/walktalk%20slides.pptx) for some more information
 
 ## Prototype
 
