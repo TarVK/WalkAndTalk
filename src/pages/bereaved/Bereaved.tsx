@@ -25,7 +25,7 @@ export const Bereaved: FC = () => {
             <Box padding={2}>
                 <Markdown>{texts.bereavedInfo.getStarted}</Markdown>
 
-                <Link to="/dashboard#buddy">
+                <Link to="/dashboard#bereaved">
                     <Button
                         variant="contained"
                         css={{marginTop: theme.spacing(1), width: "100%"}}>
